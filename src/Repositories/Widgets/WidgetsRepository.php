@@ -5,8 +5,7 @@
  *  // Register the dashboard widget
  *  $this->app['sanatorium.dashboards.widgets']->registerService(
  *      'visitors_and_pageviews',                           // slug
- *      'Sanatorium\Analytics\Widgets\DashboardVisitors',   // class
- *      'visitorsAndPageviews'                              // method
+ *      'Sanatorium\Analytics\Widgets\DashboardVisitors'    // class
  *  );
  */
 
