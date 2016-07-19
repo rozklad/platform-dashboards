@@ -19,6 +19,10 @@ class DashboardServiceProvider extends ServiceProvider {
 
 		// Register the manager
 		$this->bindIf('sanatorium.dashboards.widgets', 'Sanatorium\Dashboards\Repositories\Widgets\WidgetsRepository');
+
+        // Register the blade @dashboard directive
+        $this->registerBladeDashboardDirective();
+
 	}
 
 	/**
@@ -38,5 +42,17 @@ class DashboardServiceProvider extends ServiceProvider {
 		// Register the validator
 		$this->bindIf('sanatorium.dashboards.dashboard.validator', 'Sanatorium\Dashboards\Validator\Dashboard\DashboardValidator');
 	}
+
+    /**
+     * Register the Blade @dashboard directive.
+     *
+     * @return void
+     */
+    protected function registerBladeDashboardDirective()
+    {
+        $this->app['blade.compiler']->directive('dashboard', function ($value) {
+            return "<?php echo Widget::make('sanatorium/dashboards::dashboard.show', array$value); ?>";
+        });
+    }
 
 }
