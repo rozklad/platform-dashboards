@@ -10,7 +10,11 @@ class Dashboard {
 
 		$repository = app('sanatorium.dashboards.dashboard');
 
-        return $repository->where('slug', $slug)->first();
+        $dashboard = $repository->with('widgets')->where('slug', $slug)->first();
+
+        $widgets = $dashboard->widgets;
+
+        return view('sanatorium/dashboards::dashboard', compact('dashboard', 'widgets'));
 	}
 
 }

@@ -153,8 +153,11 @@
 									<div class="col-sm-9">
 										<?php $selectedWidget = $dashboard->widgets()->where('order', $i)->first() ?>
 										<select name="widgets[{{ $i }}]" id="widgetsInput{{ $i }}" class="form-control">
+
+											<option></option>
+
 											@foreach( $widgets as $widget)
-												<option></option>
+
 												@if ( is_object($selectedWidget) )
 													<option value="{{ $widget['service'] }}" {{ $selectedWidget->service == $widget['service'] ? 'selected' : '' }}>{{ $widget['name'] }}</option>
 												@else
