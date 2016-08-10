@@ -166,13 +166,15 @@ class DashboardRepository implements DashboardRepositoryInterface {
 				if ( empty($widget) )
 					continue;
 
-				// @todo: use WidgetRepository
-				$object = new \Sanatorium\Dashboards\Models\Widget;
-				$object->service = $widget;
-				$object->order = $key;
-				$object->dashboard_id = $dashboard->id;
-				$object->configuration = json_encode([]);		// @todo: pass configuration
-				$object->save();
+                // Delete widgets on the same position
+                $dashboard->widgets()->where('order', $key)->where('service', '!=', $widget)->delete();
+
+                \Sanatorium\Dashboards\Models\Widget::firstOrCreate([
+                    'service'       => $widget,
+                    'order'         => $key,
+                    'dashboard_id'  => $dashboard->id,
+                    'configuration' => json_encode([])      // @todo: pass configuration
+                ]);
 			}
 
 			// Fire the 'sanatorium.dashboards.dashboard.updated' event
