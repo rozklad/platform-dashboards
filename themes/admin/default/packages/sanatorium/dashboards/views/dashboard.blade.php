@@ -1,14 +1,16 @@
 @foreach( $widgets as $widget )
 
-    @if ( ($widget->service)::HAS_WRAPPER )
+    <?php $service = $widget->service; ?>
+
+    @if ( $service::HAS_WRAPPER )
     <div class="panel panel-default widget dashboard-widget">
 
         <div class="panel-body">
             @endif
 
-            {!! (new $widget->service)->run() !!}
+            {!! (new $service)->run() !!}
 
-            @if ( ($widget->service)::HAS_WRAPPER )
+            @if ( $service::HAS_WRAPPER )
         </div>
 
     </div>
