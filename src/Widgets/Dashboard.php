@@ -12,7 +12,7 @@ class Dashboard {
 
         $dashboard = $repository->with('widgets')->where('slug', $slug)->first();
 
-        $widgets = $dashboard->widgets;
+        $widgets = $dashboard->widgets()->orderBy('order')->get();
 
         return view('sanatorium/dashboards::dashboard', compact('dashboard', 'widgets'));
 	}
