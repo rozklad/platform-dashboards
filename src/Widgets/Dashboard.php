@@ -12,6 +12,9 @@ class Dashboard {
 
         $dashboard = $repository->with('widgets')->where('slug', $slug)->first();
 
+        if ( !is_object($dashboard) )
+            return null;
+
         $widgets = $dashboard->widgets()->orderBy('order')->get();
 
         return view('sanatorium/dashboards::dashboard', compact('dashboard', 'widgets'));
